@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+</body>
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3-Column Flip Cards</title>
+
+  <style>
+    /* Base */
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #0b1220;
+      color: #eaf0ff;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px;
+    }
+
+    .title {
+      margin: 0 0 20px;
+      font-size: 28px;
+      letter-spacing: 0.2px;
+    }
+
+    /* 3-column grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    /* Flip card */
+    .flip-card {
+      height: 220px;
+      perspective: 1000px; /* Needed for 3D */
+      border-radius: 18px;
+      outline: none;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Focus style for keyboard users */
+    .flip-card:focus-visible {
+      box-shadow: 0 0 0 3px rgba(103, 132, 255, 0.6);
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform-style: preserve-3d;
+      border-radius: 18px;
+    }
+
+    /* When flipped */
+    .flip-card.is-flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      padding: 18px;
+      display: grid;
+      align-content: center;
+      gap: 8px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Front */
+    .flip-card-front {
+      background: linear-gradient(135deg, #1b2a55, #223a7b);
+    }
+
+    /* Back */
+    .flip-card-back {
+      background: linear-gradient(135deg, #4a1d62, #8b2bb0);
+      transform: rotateY(180deg);
+    }
+
+    .flip-card h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .flip-card p {
+      margin: 0;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <h1 class="title">Flip Cards (3 Columns)</h1> -->
