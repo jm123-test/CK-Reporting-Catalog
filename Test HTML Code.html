@@ -76,6 +76,22 @@
       display: table;
       clear: both;
     }
+
+    /* image containers*/
+    * {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
+    
   </style>
 </head>
 
@@ -101,15 +117,28 @@
 
     <div id="CKG_Home" class="tabcontent" data-group="CKG">
       <h3>Home</h3>
-      <p> xxx quick summary of the report</p>
-      <p>Refresh Schedule: xxx </p>
+      <div class="row">
+        <div class="column">
+          <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Charles%20Insight%20Report.png" style="width:100%">
+        </div>
+        <div class="column">
+          <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Inventory%20Analysis%20Report.png" style="width:100%">
+        </div>
+        <div class="column">
+          <img src="img_mountains.jpg" alt="Mountains" style="width:100%">
+        </div>
+</div>
     </div>
     
     <div id="CKG_Article_Level" class="tabcontent" data-group="CKG">
       <h3>Article Level</h3>
       <p> xxx quick summary of the report</p>
       <p> Refresh Schedule: xxx </p>
-      <p> Access the report here <a href="https://app.powerbi.com/groups/me/apps/73ca3743-05d4-4d44-ab9c-94241dfb47e4/reports/7a36daec-1bc0-4203-a801-ed58d2a97b85/b5b589cf74a0fc4a84a1?ctid=91102694-da46-42b1-8eab-608c2550e73b&experience=power-bi"><image src= "https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Arrow.svg"></a> </p>
+      <p> Access the report here 
+        <a href="https://app.powerbi.com/groups/me/apps/73ca3743-05d4-4d44-ab9c-94241dfb47e4/reports/7a36daec-1bc0-4203-a801-ed58d2a97b85/b5b589cf74a0fc4a84a1?ctid=91102694-da46-42b1-8eab-608c2550e73b&experience=power-bi">
+          <i class = "right-arrow"></i>
+        </a> 
+      </p>
       <iframe title="2026 Sales Performance" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=c32336ee-c479-449e-a237-7209962d41ee&appId=73ca3743-05d4-4d44-ab9c-94241dfb47e4&autoAuth=true&ctid=91102694-da46-42b1-8eab-608c2550e73b" frameborder="0" allowFullScreen="true"></iframe>
     </div>
 
