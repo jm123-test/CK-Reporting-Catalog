@@ -93,16 +93,23 @@
   <!-- CKG panel -->
   <div id="CKG" class="horizontal_tabcontent group-wrap">
     <div class="tab">
-      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')"
-        id="defaultCKGOpen">Article Level</button>
+      <button class = "vTab" onclick="openInner(event, 'CKG','CKG_Home')" id = "defaultCKGOpen">Home</button>
+      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')">Article Level</button>
       <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_SKU_Level')">SKU Level</button>
       <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Traffic')">Traffic</button>
     </div>
 
+    <div id="CKG_Home" class="tabcontent" data-group="CKG">
+      <h3>Home</h3>
+      <p> xxx quick summary of the report</p>
+      <p>Refresh Schedule: xxx </p>
+    </div>
+    
     <div id="CKG_Article_Level" class="tabcontent" data-group="CKG">
       <h3>Article Level</h3>
       <p> xxx quick summary of the report</p>
-      <p>Refresh Schedule: xxx </p>
+      <p> Refresh Schedule: xxx </p>
+      <p> Access the report here <a href="https://app.powerbi.com/groups/me/apps/73ca3743-05d4-4d44-ab9c-94241dfb47e4/reports/7a36daec-1bc0-4203-a801-ed58d2a97b85/b5b589cf74a0fc4a84a1?ctid=91102694-da46-42b1-8eab-608c2550e73b&experience=power-bi"><image src= "https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Arrow.svg"></a> </p>
       <iframe title="2026 Sales Performance" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=c32336ee-c479-449e-a237-7209962d41ee&appId=73ca3743-05d4-4d44-ab9c-94241dfb47e4&autoAuth=true&ctid=91102694-da46-42b1-8eab-608c2550e73b" frameborder="0" allowFullScreen="true"></iframe>
     </div>
 
@@ -192,4 +199,3 @@
   </script>
 </body>
 </html>
-``
