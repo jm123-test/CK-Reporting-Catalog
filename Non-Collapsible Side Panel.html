@@ -4,12 +4,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     * { box-sizing: border-box; }
-    body { font-family: "Lato", sans-serif; }
+    body { font-family: "Lato", sans-serif; margin: 0; padding: 16px; }
 
     /* Horizontal tabs (top) */
     .horizontal_tab {
       overflow: hidden;
       background-color: #ffffff;
+      border-bottom: 1px solid #eee;
     }
 
     .horizontal_tab button {
@@ -25,8 +26,8 @@
       font-size: 24px;
     }
 
-    .horizontal_tab button:hover { background-color: #f1f1f1}
-    .horizontal_tab button.active { border-bottom: 3px solid #405D78 ; color: #405D78 }
+    .horizontal_tab button:hover { background-color: #f1f1f1; }
+    .horizontal_tab button.active { border-bottom: 3px solid #405D78; color: #405D78; }
 
     .horizontal_tabcontent {
       display: none;
@@ -41,14 +42,14 @@
       background-color: #f1f1f1;
       padding-top: 5px;
       width: 10%;
-      height: 100%;
+      min-height: 400px;
     }
 
     .tab button {
       display: block;
       background-color: inherit;
       color: black;
-      padding: 22px 16px;
+      padding: 14px 12px;
       width: 100%;
       border: none;
       outline: none;
@@ -66,27 +67,10 @@
       padding: 0px 12px;
       width: 90%;
       border-left: none;
-      height: 300px;
+      min-height: 400px;
       display: none;
     }
 
-    /*click card links*/
-    .tab button2 {
-      display: block;
-      background-color: #fffff;
-      color: black;
-      padding: 22px 16px;
-      width: 100%;
-      border: none;
-      outline: none;
-      text-align: left;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 16px;
-    }
-
-    .tab button2:hover { background-color: #f1f1f1; }
-    
     /* clearfix for each group */
     .group-wrap::after {
       content: "";
@@ -94,48 +78,62 @@
       clear: both;
     }
 
-    /* image containers*/
-    * {
-  box-sizing: border-box;
-}
+    /* image containers */
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .column { flex: 1 1 260px; padding: 5px; }
 
-.row {
-  display: flex;
-}
+    /* card */
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      transition: 0.3s;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
 
-.column {
-  flex: 33.33%;
-  padding: 5px;
-}
+    .card:hover { box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); }
 
-  /*card*/
-  .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 80%;
-}
+    .container {
+      padding: 10px 12px;
+      text-align: center;
+    }
 
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
+    /* Make the entire card clickable (button styled like a container) */
+    .card-btn {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      background: #ffffff;
+      cursor: pointer;
+      text-align: inherit;
+    }
 
-.container {
-  padding: 2px 16px;
-  text-align: center;"
-}
-  /* arrows */
-  .arrow {
-  border: #405D78;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-}
+    .card-btn:focus {
+      outline: 3px solid rgba(64,93,120,0.35);
+      outline-offset: 2px;
+    }
 
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-}
-    
+    .card img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    /* arrows */
+    .arrow {
+      border: solid #405D78;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      margin-left: 6px;
+    }
+
+    .right {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
   </style>
 </head>
 
@@ -145,94 +143,100 @@
 
   <!-- Top horizontal tabs -->
   <div class="horizontal_tab">
-    <button class="hTab" onclick="openGroup(event, 'CKG')"
-      id="defaultGroupOpen">CKG Reports</button>
+    <button class="hTab" onclick="openGroup(event, 'CKG')" id="defaultGroupOpen">CKG Reports</button>
     <button class="hTab" onclick="openGroup(event, 'PDG')">PDG Reports</button>
   </div>
 
   <!-- CKG panel -->
   <div id="CKG" class="horizontal_tabcontent group-wrap">
     <div class="tab">
-      <button class = "vTab" onclick="openInner(event, 'CKG','CKG_Home')" id = "defaultCKGOpen">Home</button>
+      <button class="vTab" onclick="openInner(event, 'CKG','CKG_Home')" id="defaultCKGOpen">Home</button>
       <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')">Article Level</button>
       <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_SKU_Level')">SKU Level</button>
       <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Traffic')">Traffic</button>
     </div>
 
     <div id="CKG_Home" class="tabcontent" data-group="CKG">
-      <p>View the list of reports below. Click the arrow to explore more.</p>
+      <p>View the list of reports below. Click the card to explore more.</p>
+
       <div class="row">
-        
+
         <div class="column">
-          <div class = "card">
-            <button2 class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')">
-            <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Charles%20Insight%20Report.png" style="width:100%">
-              <div class = "container">
+          <div class="card">
+            <button class="card-btn" onclick="openInner(event, 'CKG', 'CKG_Article_Level')" type="button">
+              <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Charles%20Insight%20Report.png" alt="Charles Insight Report" />
+              <div class="container">
                 <h4><b>Charles Insight Report</b></h4>
                 <p>xx summary</p>
               </div>
-            </button2>
+            </button>
           </div>
         </div>
-        
+
         <div class="column">
-          <div class = "card">
-            <button2 class="vTab" onclick="openInner(event, 'CKG', 'CKG_SKU_Level')">
-            <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Inventory%20Analysis%20Report.png" style="width:100%">
-            <div class = "container">
-              <h4><b>Inventory Analysis</b></h4>
-              <p>xxx summary</p>
-            </div>
-            </button2>
+          <div class="card">
+            <button class="card-btn" onclick="openInner(event, 'CKG', 'CKG_SKU_Level')" type="button">
+              <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Inventory%20Analysis%20Report.png" alt="Inventory Analysis" />
+              <div class="container">
+                <h4><b>Inventory Analysis</b></h4>
+                <p>xxx summary</p>
+              </div>
+            </button>
           </div>
         </div>
-          
+
         <div class="column">
-          <div class = "card">
-            <button2 class="vTab" onclick="openInner(event, 'CKG', 'CKG_Traffic')">
-            <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Inventory%20Analysis%20Report.png" style="width:100%">
-            <div class = "container">
-              <h4><b>Inventory Analysis</b></h4>
-              <p>xxx summary</p>
-            </div>
-            </button2>
+          <div class="card">
+            <button class="card-btn" onclick="openInner(event, 'CKG', 'CKG_Traffic')" type="button">
+              <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Inventory%20Analysis%20Report.png" alt="Traffic Report" />
+              <div class="container">
+                <h4><b>Traffic</b></h4>
+                <p>xxx summary</p>
+              </div>
+            </button>
           </div>
         </div>
-  
+
+      </div>
     </div>
 
-</div>
-    
     <div id="CKG_Article_Level" class="tabcontent" data-group="CKG">
       <h3>Article Level</h3>
-      <p> xxx quick summary of the report</p>
-      <p> Refresh Schedule: xxx </p>
-      <p> Access the report here 
-        <a href="https://app.powerbi.com/groups/me/apps/73ca3743-05d4-4d44-ab9c-94241dfb47e4/reports/7a36daec-1bc0-4203-a801-ed58d2a97b85/b5b589cf74a0fc4a84a1?ctid=91102694-da46-42b1-8eab-608c2550e73b&experience=power-bi">
-          <i class = "right-arrow"></i>
-        </a> 
+      <p>xxx quick summary of the report</p>
+      <p>Refresh Schedule: xxx</p>
+      <p>
+        Access the report here
+        <a href="https://app.powerbi.com/groups/me/apps/73ca3743-05d4-4d44-ab9c-94241dfb47e4/reports/7a36daec-1bc0-4203-a801-ed58d2a97b85/b5b589cf74a0fc4a84a1?ctid=91102694-da46-42b1-8eab-608c2550e73b&experience=power-bi" target="_blank" rel="noopener">
+          <i class="arrow right"></i>
+        </a>
       </p>
-      <iframe title="2026 Sales Performance" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=c32336ee-c479-449e-a237-7209962d41ee&appId=73ca3743-05d4-4d44-ab9c-94241dfb47e4&autoAuth=true&ctid=91102694-da46-42b1-8eab-608c2550e73b" frameborder="0" allowFullScreen="true"></iframe>
+      <iframe
+        title="2026 Sales Performance"
+        width="1140"
+        height="541.25"
+        src="https://app.powerbi.com/reportEmbed?reportId=c32336ee-c479-449e-a237-7209962d41ee&appId=73ca3743-05d4-4d44-ab9c-94241dfb47e4&autoAuth=true&ctid=91102694-da46-42b1-8eab-608c2550e73b"
+        frameborder="0"
+        allowfullscreen="true">
+      </iframe>
     </div>
 
     <div id="CKG_SKU_Level" class="tabcontent" data-group="CKG">
       <h3>SKU Level</h3>
-      <p> xxx quick summary of the report</p>
-      <p>Refresh Schedule: xxx </p>
+      <p>xxx quick summary of the report</p>
+      <p>Refresh Schedule: xxx</p>
     </div>
 
     <div id="CKG_Traffic" class="tabcontent" data-group="CKG">
       <h3>Traffic</h3>
-      <p> xxx quick summary of the report</p>
-      <p> Refresh Schedule: xxx </p>
+      <p>xxx quick summary of the report</p>
+      <p>Refresh Schedule: xxx</p>
     </div>
   </div>
 
   <!-- PDG panel -->
   <div id="PDG" class="horizontal_tabcontent group-wrap">
     <div class="tab">
-      <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_London')"
-        id="defaultPDGOpen">London</button>
+      <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_London')" id="defaultPDGOpen">London</button>
       <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_Paris')">Paris</button>
       <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_Tokyo')">Tokyo</button>
     </div>
@@ -272,7 +276,7 @@
       document.getElementById(groupId).style.display = "block";
       evt.currentTarget.classList.add("active");
 
-      // when switching groups, auto-open that group's default vertical tab
+      // auto-open that group's default vertical tab
       if (groupId === "CKG") {
         document.getElementById("defaultCKGOpen").click();
       } else if (groupId === "PDG") {
@@ -293,7 +297,12 @@
 
       // show selected content
       document.getElementById(contentId).style.display = "block";
-      evt.currentTarget.classList.add("active");
+
+      // If click came from a card button (still has vTab class or not), it won't exist in left menu.
+      // So only mark active if it is one of the left menu buttons.
+      if (evt && evt.currentTarget && evt.currentTarget.classList.contains("vTab")) {
+        evt.currentTarget.classList.add("active");
+      }
     }
 
     // Default open: open first horizontal tab (CKG), then its first vertical tab
