@@ -1,166 +1,191 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {box-sizing: border-box}
-body {font-family: "Lato", sans-serif;}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: "Lato", sans-serif; }
 
- /* Style the horizontal tab */
-.horizontal_tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
+    /* Horizontal tabs (top) */
+    .horizontal_tab {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+    }
 
-/* Style the buttons that are used to open the tab content */
-.horizontal_tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-}
+    .horizontal_tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+    }
 
-/* Change background color of buttons on hover */
-.horizontal_tab button:hover {
-  background-color: #ddd;
-}
+    .horizontal_tab button:hover { background-color: #ddd; }
+    .horizontal_tab button.active { background-color: #ccc; }
 
-/* Create an active/current tablink class */
-.horizontal_tab button.active {
-  background-color: #ccc;
-}
+    .horizontal_tabcontent {
+      display: none;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-top: none;
+      clear: both;
+    }
 
-/* Style the tab content */
-.horizontal_tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-}
+    /* Vertical tabs (inside each horizontal tab) */
+    .tab {
+      float: left;
+      border: 1px solid #ccc;
+      background-color: #f1f1f1;
+      width: 30%;
+      height: 300px;
+    }
 
-/* Style the tab */
-.tab {
-  float: left;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-  width: 30%;
-  height: 300px;
-}
+    .tab button {
+      display: block;
+      background-color: inherit;
+      color: black;
+      padding: 22px 16px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 17px;
+    }
 
-/* Style the buttons inside the tab */
-.tab button {
-  display: block;
-  background-color: inherit;
-  color: black;
-  padding: 22px 16px;
-  width: 100%;
-  border: none;
-  outline: none;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 17px;
-}
+    .tab button:hover { background-color: #ddd; }
+    .tab button.active { background-color: #ccc; }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
+    .tabcontent {
+      float: left;
+      padding: 0px 12px;
+      border: 1px solid #ccc;
+      width: 70%;
+      border-left: none;
+      height: 300px;
+      display: none;
+    }
 
-/* Create an active/current "tab button" class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  float: left;
-  padding: 0px 12px;
-  border: 1px solid #ccc;
-  width: 70%;
-  border-left: none;
-  height: 300px;
-}
-</style>
+    /* clearfix for each group */
+    .group-wrap::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
 </head>
+
 <body>
+  <h2>Nested Tabs (Horizontal + Vertical)</h2>
+  <p>Click on the buttons inside the tabbed menu:</p>
 
-<h2>Vertical Tabs</h2>
-<p>Click on the buttons inside the tabbed menu:</p>
-
-<div class = "horizontal_tab">
-  <button class = "tablinks" onclick="openCity(event, 'CKG')">CKG Reports</button>
-  <button class = "tablinks" onclick="openCity(event, 'PDG')">PDG Reports</button>
-</div>
-
-<div id="CKG" class = "horizontal_tabcontent">
-  <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+  <!-- Top horizontal tabs -->
+  <div class="horizontal_tab">
+    <button class="hTab" onclick="openGroup(event, 'CKG')"
+      id="defaultGroupOpen">CKG Reports</button>
+    <button class="hTab" onclick="openGroup(event, 'PDG')">PDG Reports</button>
   </div>
 
-  <div id="London" class="tabcontent">
-    <h3>London</h3>
-    <p>London is the capital city of England.</p>
-  </div>
-  
-  <div id="Paris" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p> 
-  </div>
-  
-  <div id="Tokyo" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
-  </div>
-</div>
+  <!-- CKG panel -->
+  <div id="CKG" class="horizontal_tabcontent group-wrap">
+    <div class="tab">
+      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_London')"
+        id="defaultCKGOpen">London</button>
+      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Paris')">Paris</button>
+      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Tokyo')">Tokyo</button>
+    </div>
 
-<div id="PDG" class = "horizontal_tabcontent">
-  <div class="tab">
-    <button class="tablinks" onclick="openCity(event, 'London')" id="defaultOpen">London</button>
-    <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+    <div id="CKG_London" class="tabcontent" data-group="CKG">
+      <h3>London (CKG)</h3>
+      <p>London is the capital city of England.</p>
+    </div>
+
+    <div id="CKG_Paris" class="tabcontent" data-group="CKG">
+      <h3>Paris (CKG)</h3>
+      <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="CKG_Tokyo" class="tabcontent" data-group="CKG">
+      <h3>Tokyo (CKG)</h3>
+      <p>Tokyo is the capital of Japan.</p>
+    </div>
   </div>
 
-  <div id="London" class="tabcontent">
-    <h3>London</h3>
-    <p>London is the capital city of England.</p>
-  </div>
-  
-  <div id="Paris" class="tabcontent">
-    <h3>Paris</h3>
-    <p>Paris is the capital of France.</p> 
-  </div>
-  
-  <div id="Tokyo" class="tabcontent">
-    <h3>Tokyo</h3>
-    <p>Tokyo is the capital of Japan.</p>
-  </div>
-</div>
+  <!-- PDG panel -->
+  <div id="PDG" class="horizontal_tabcontent group-wrap">
+    <div class="tab">
+      <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_London')"
+        id="defaultPDGOpen">London</button>
+      <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_Paris')">Paris</button>
+      <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_Tokyo')">Tokyo</button>
+    </div>
 
-<script>
-function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-}
+    <div id="PDG_London" class="tabcontent" data-group="PDG">
+      <h3>London (PDG)</h3>
+      <p>London is the capital city of England.</p>
+    </div>
 
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-</script>
-   
+    <div id="PDG_Paris" class="tabcontent" data-group="PDG">
+      <h3>Paris (PDG)</h3>
+      <p>Paris is the capital of France.</p>
+    </div>
+
+    <div id="PDG_Tokyo" class="tabcontent" data-group="PDG">
+      <h3>Tokyo (PDG)</h3>
+      <p>Tokyo is the capital of Japan.</p>
+    </div>
+  </div>
+
+  <script>
+    // Horizontal tabs: show one group panel at a time
+    function openGroup(evt, groupId) {
+      // hide all group panels
+      const groupPanels = document.getElementsByClassName("horizontal_tabcontent");
+      for (let i = 0; i < groupPanels.length; i++) {
+        groupPanels[i].style.display = "none";
+      }
+
+      // remove active class from all horizontal buttons
+      const hTabs = document.getElementsByClassName("hTab");
+      for (let i = 0; i < hTabs.length; i++) {
+        hTabs[i].classList.remove("active");
+      }
+
+      // show the selected group
+      document.getElementById(groupId).style.display = "block";
+      evt.currentTarget.classList.add("active");
+
+      // when switching groups, auto-open that group's default vertical tab
+      if (groupId === "CKG") {
+        document.getElementById("defaultCKGOpen").click();
+      } else if (groupId === "PDG") {
+        document.getElementById("defaultPDGOpen").click();
+      }
+    }
+
+    // Vertical tabs: only switch content inside a specific group
+    function openInner(evt, groupId, contentId) {
+      // hide all inner tabcontent for this group only
+      const contents = document.querySelectorAll('.tabcontent[data-group="' + groupId + '"]');
+      contents.forEach(el => el.style.display = "none");
+
+      // remove active from only vertical buttons inside this group panel
+      const groupPanel = document.getElementById(groupId);
+      const vTabs = groupPanel.querySelectorAll(".vTab");
+      vTabs.forEach(btn => btn.classList.remove("active"));
+
+      // show selected content
+      document.getElementById(contentId).style.display = "block";
+      evt.currentTarget.classList.add("active");
+    }
+
+    // Default open: open first horizontal tab (CKG), then its first vertical tab
+    document.getElementById("defaultGroupOpen").click();
+  </script>
 </body>
-</html> 
+</html>
+``
