@@ -21,7 +21,8 @@
       padding: 14px 16px;
       transition: 0.3s;
       width: 50%;
-      font-weight: bold
+      font-weight: bold;
+      font-size: 24px;
     }
 
     .horizontal_tab button:hover { background-color: #f1f1f1}
@@ -39,7 +40,7 @@
       float: left;
       background-color: #f1f1f1;
       padding-top: 5px;
-      width: 15%;
+      width: 10%;
       height: 300px;
     }
 
@@ -54,7 +55,7 @@
       text-align: left;
       cursor: pointer;
       transition: 0.3s;
-      font-size: 17px;
+      font-size: 16px;
     }
 
     .tab button:hover { background-color: #ddd; }
@@ -63,7 +64,7 @@
     .tabcontent {
       float: left;
       padding: 0px 12px;
-      width: 85%;
+      width: 90%;
       border-left: none;
       height: 300px;
       display: none;
@@ -92,25 +93,29 @@
   <!-- CKG panel -->
   <div id="CKG" class="horizontal_tabcontent group-wrap">
     <div class="tab">
-      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_London')"
-        id="defaultCKGOpen">London</button>
-      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Paris')">Paris</button>
-      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Tokyo')">Tokyo</button>
+      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')"
+        id="defaultCKGOpen">Article Level</button>
+      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_SKU_Level')">SKU Level</button>
+      <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Traffic')">Traffic</button>
     </div>
 
-    <div id="CKG_London" class="tabcontent" data-group="CKG">
-      <h3>London (CKG)</h3>
-      <p>London is the capital city of England.</p>
+    <div id="CKG_Article_Level" class="tabcontent" data-group="CKG">
+      <h3>Article Level</h3>
+      <p> xxx quick summary of the report</p>
+      <p>Refresh Schedule: xxx </p>
+      <iframe title="2026 Sales Performance" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=c32336ee-c479-449e-a237-7209962d41ee&appId=73ca3743-05d4-4d44-ab9c-94241dfb47e4&autoAuth=true&ctid=91102694-da46-42b1-8eab-608c2550e73b" frameborder="0" allowFullScreen="true"></iframe>
     </div>
 
-    <div id="CKG_Paris" class="tabcontent" data-group="CKG">
-      <h3>Paris (CKG)</h3>
-      <p>Paris is the capital of France.</p>
+    <div id="CKG_SKU_Level" class="tabcontent" data-group="CKG">
+      <h3>SKU Level</h3>
+      <p> xxx quick summary of the report</p>
+      <p>Refresh Schedule: xxx </p>
     </div>
 
-    <div id="CKG_Tokyo" class="tabcontent" data-group="CKG">
-      <h3>Tokyo (CKG)</h3>
-      <p>Tokyo is the capital of Japan.</p>
+    <div id="CKG_Traffic" class="tabcontent" data-group="CKG">
+      <h3>Traffic</h3>
+      <p> xxx quick summary of the report</p>
+      <p> Refresh Schedule: xxx </p>
     </div>
   </div>
 
