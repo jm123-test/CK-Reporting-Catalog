@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <title>Tabbed Reports Hub</title>
+
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: "Lato", sans-serif; margin: 0; padding: 16px; }
+
+    /* -----------------------------
+       Horizontal tabs (top) - KEEP
+    ------------------------------*/
+    .horizontal_tab {
+      overflow: hidden;
+      background-color: #ffffff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .horizontal_tab button {
+      background-color: inherit;
+      float: left;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: 0.3s;
+      width: 50%;
+      font-weight: bold;
+      font-size: 24px;
+    }
+
+    .horizontal_tab button:hover { background-color: #f1f1f1; }
+    .horizontal_tab button.active { border-bottom: 3px solid #405D78; color: #405D78; }
+
+    .horizontal_tabcontent {
+      display: none;
+      padding-left: 0px;
+      padding-right: 10px;
+      clear: both;
+      margin-top: 12px;
+    }
+
+    /* clearfix for each group */
+    .group-wrap::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* -----------------------------
+       Collapsible Sidebar Layout
+    ------------------------------*/
+    .group-layout {
+      display: flex;
+      width: 100%;
+      min-height: 520px;
+      border: 1px solid #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #f1f1f1;
+      transition: width 0.25s ease;
+      overflow: hidden;
+      border-right: 1px solid #e0e0e0;
+    }
+
+    .sidebar.collapsed {
+      width: 56px; /* collapsed rail width */
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 10px;
+      border-bottom: 1px solid #e0e0e0;
+      background: #f7f7f7;
+    }
+
+    .sidebar-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #405D78;
+      white-space: nowrap;
+    }
+
+    .sidebar.collapsed .sidebar-title {
+      display: none;
+    }
+
+    .sidebar-toggle {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .sidebar-toggle:hover {
+      background: #e7e7e7;
+    }
+
+    /* Sidebar menu buttons (vTab) */
+    .sidebar button.vTab {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 12px 12px;
+      text-align: left;
+      font-size: 15px;
+      transition: background 0.2s ease;
+      color: #111;
+    }
+
+    .sidebar button.vTab:hover { background: #ddd; }
+    .sidebar button.vTab.active { background: #ccc; font-weight: 700; }
+
+    .nav-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border: 1px solid #e2e2e2;
+      flex: 0 0 28px;
+      font-size: 14px;
+    }
+
+    .sidebar.collapsed .nav-text {
+      display: none;
+    }
+
+    .main {
+      flex: 1;
+      padding: 12px 14px;
+      min-width: 0;
+      background: #ffffff;
+    }
+
+    /* Tab contents (no float in flex layout) */
+    .tabcontent {
+      display: none;
+      width: 100%;
+      min-height: 480px;
+    }
+
+    /* -----------------------------
+       Cards (Home page)
+    ------------------------------*/
+    .row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .column { flex: 1 1 260px; padding: 5px; }
+
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.18);
+      transition: 0.3s;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .card:hover { box-shadow: 0 8px 16px 0 rgba(0,0,0,0.22); }
+
+    .card-btn {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: none;
+      background: #ffffff;
+      cursor: pointer;
+      text-align: inherit;
+    }
+
+    .card-btn:focus {
+      outline: 3px solid rgba(64,93,120,0.35);
+      outline-offset: 2px;
+    }
+
+    .card img { display: block; width: 100%; height: auto; }
+
+    .container {
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    /* -----------------------------
+       Arrow icon (optional)
+    ------------------------------*/
+    .arrow {
+      border: solid #405D78;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      margin-left: 6px;
+    }
+    .right {
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+    }
+
+    /* Small quality-of-life */
+    a { color: #405D78; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .group-layout { flex-direction: column; }
+      .sidebar, .sidebar.collapsed { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Test1</h2>
+  <p>Click on the buttons inside the tabbed menu:</p>
+
+  <!-- Top horizontal tabs -->
+  <div class="horizontal_tab">
+    <button class="hTab" onclick="openGroup(event, 'CKG')" id="defaultGroupOpen">CKG Reports</button>
+    <button class="hTab" onclick="openGroup(event, 'PDG')">PDG Reports</button>
+  </div>
+
+  <!-- =========================
+       CKG panel
+  ========================== -->
+  <div id="CKG" class="horizontal_tabcontent group-wrap">
+    <div class="group-layout">
+
+      <!-- Collapsible Sidebar -->
+      <aside class="sidebar" id="CKG_sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">CKG Menu</div>
+          <button class="sidebar-toggle" type="button" onclick="toggleSidebar('CKG')" aria-label="Toggle sidebar">
+            ☰
+          </button>
+        </div>
+
+        <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Home')" id="defaultCKGOpen" type="button">
+          <span class="nav-icon">🏠</span><span class="nav-text">Home</span>
+        </button>
+
+        <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')" type="button">
+          <span class="nav-icon">📄</span><span class="nav-text">Article Level</span>
+        </button>
+
+        <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_SKU_Level')" type="button">
+          <span class="nav-icon">🏷️</span><span class="nav-text">SKU Level</span>
+        </button>
+
+        <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Traffic')" type="button">
+          <span class="nav-icon">📈</span><span class="nav-text">Traffic</span>
+        </button>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="main">
+        <div id="CKG_Home" class="tabcontent" data-group="CKG">
+          <p>View the list of reports below. Click the card to explore more.</p>
+
+          <div class="row">
+            <div class="column">
+              <div class="card">
+                <button class="card-btn" onclick="openInner(event, 'CKG', 'CKG_Article_Level')" type="button">
+                  <img
+                    src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Charles%20Insight%20Report.png"
+                    alt="Charles Insight Report"
+                  />
+                  <div class="container">
+                    <h4><b>Charles Insight Report</b></h4>
+                    <p>xx summary</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+                <button class="card-btn" onclick="openInner(event, 'CKG', 'CKG_SKU_Level')" type="button">
+                  <img
+                    src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Inventory%20Analysis%20Report.png"
+                    alt="Inventory Analysis"
+                  />
+                  <div class="container">
+                    <h4><b>Inventory Analysis</b></h4>
+                    <p>xxx summary</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="column">
+              <div class="card">
+                <button class="card-btn" onclick="openInner(event, 'CKG', 'CKG_Traffic')" type="button">
+                  <img
+                    src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Inventory%20Analysis%20Report.png"
+                    alt="Traffic"
+                  />
+                  <div class="container">
+                    <h4><b>Traffic</b></h4>
+                    <p>xxx summary</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="CKG_Article_Level" class="tabcontent" data-group="CKG">
+          <h3>Article Level</h3>
+          <p>xxx quick summary of the report</p>
+          <p>Refresh Schedule: xxx</p>
+
+          <p>
+            Access the report here:
+            <a
+              href="https://app.powerbi.com/groups/me/apps/73ca3743-05d4-4d44-ab9c-94241dfb47e4/reports/7a36daec-1bc0-4203-a801-ed58d2a97b85/b5b589cf74a0fc4a84a1?ctid=91102694-da46-42b1-8eab-608c2550e73b&experience=power-bi"
+              target="_blank" rel="noopener"
+            >
+              Open <i class="arrow right"></i>
+            </a>
+          </p>
+
+          <iframe
+            title="2026 Sales Performance"
+            width="1140"
+            height="541.25"
+            src="https://app.powerbi.com/reportEmbed?reportId=c32336ee-c479-449e-a237-7209962d41ee&appId=73ca3743-05d4-4d44-ab9c-94241dfb47e4&autoAuth=true&ctid=91102694-da46-42b1-8eab-608c2550e73b"
+            frameborder="0"
+            allowfullscreen="true">
+          </iframe>
+        </div>
+
+        <div id="CKG_SKU_Level" class="tabcontent" data-group="CKG">
+          <h3>SKU Level</h3>
+          <p>xxx quick summary of the report</p>
+          <p>Refresh Schedule: xxx</p>
+        </div>
+
+        <div id="CKG_Traffic" class="tabcontent" data-group="CKG">
+          <h3>Traffic</h3>
+          <p>xxx quick summary of the report</p>
+          <p>Refresh Schedule: xxx</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- =========================
+       PDG panel
+  ========================== -->
+  <div id="PDG" class="horizontal_tabcontent group-wrap">
+    <div class="group-layout">
+
+      <!-- Collapsible Sidebar -->
+      <aside class="sidebar" id="PDG_sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">PDG Menu</div>
+          <button class="sidebar-toggle" type="button" onclick="toggleSidebar('PDG')" aria-label="Toggle sidebar">
+            ☰
+          </button>
+        </div>
+
+        <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_London')" id="defaultPDGOpen" type="button">
+          <span class="nav-icon">🇬🇧</span><span class="nav-text">London</span>
+        </button>
+
+        <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_Paris')" type="button">
+          <span class="nav-icon">🇫🇷</span><span class="nav-text">Paris</span>
+        </button>
+
+        <button class="vTab" onclick="openInner(event, 'PDG', 'PDG_Tokyo')" type="button">
+          <span class="nav-icon">🇯🇵</span><span class="nav-text">Tokyo</span>
+        </button>
+      </aside>
+
+      <!-- Main Content -->
+      <section class="main">
+        <div id="PDG_London" class="tabcontent" data-group="PDG">
+          <h3>London (PDG)</h3>
+          <p>London is the capital city of England.</p>
+        </div>
+
+        <div id="PDG_Paris" class="tabcontent" data-group="PDG">
+          <h3>Paris (PDG)</h3>
+          <p>Paris is the capital of France.</p>
+        </div>
+
+        <div id="PDG_Tokyo" class="tabcontent" data-group="PDG">
+          <h3>Tokyo (PDG)</h3>
+          <p>Tokyo is the capital of Japan.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // Toggle sidebar collapse per group (CKG/PDG)
+    function toggleSidebar(groupId) {
+      const sidebar = document.getElementById(groupId + "_sidebar");
+      if (sidebar) sidebar.classList.toggle("collapsed");
+    }
+
+    // Horizontal tabs: show one group panel at a time
+    function openGroup(evt, groupId) {
+      // hide all group panels
+      const groupPanels = document.getElementsByClassName("horizontal_tabcontent");
+      for (let i = 0; i < groupPanels.length; i++) {
+        groupPanels[i].style.display = "none";
+      }
+
+      // remove active class from all horizontal buttons
+      const hTabs = document.getElementsByClassName("hTab");
+      for (let i = 0; i < hTabs.length; i++) {
+        hTabs[i].classList.remove("active");
+      }
+
+      // show the selected group
+      document.getElementById(groupId).style.display = "block";
+      evt.currentTarget.classList.add("active");
+
+      // when switching groups, auto-open that group's default vertical tab
+      if (groupId === "CKG") {
+        document.getElementById("defaultCKGOpen").click();
+      } else if (groupId === "PDG") {
+        document.getElementById("defaultPDGOpen").click();
+      }
+    }
+
+    // Vertical tabs: only switch content inside a specific group
+    function openInner(evt, groupId, contentId) {
+      // hide all inner tabcontent for this group only
+      const contents = document.querySelectorAll('.tabcontent[data-group="' + groupId + '"]');
+      contents.forEach(el => el.style.display = "none");
+
+      // remove active from only vertical buttons inside this group panel
+      const groupPanel = document.getElementById(groupId);
+      const vTabs = groupPanel.querySelectorAll(".vTab");
+      vTabs.forEach(btn => btn.classList.remove("active"));
+
+      // show selected content
+      const content = document.getElementById(contentId);
+      if (content) content.style.display = "block";
+
+      // mark active only if click came from sidebar buttons
+      if (evt && evt.currentTarget && evt.currentTarget.classList.contains("vTab")) {
+        evt.currentTarget.classList.add("active");
+      }
+    }
+
+    // Default open: open first horizontal tab (CKG), then its first vertical tab
+    document.getElementById("defaultGroupOpen").click();
+  </script>
+</body>
+</html>
