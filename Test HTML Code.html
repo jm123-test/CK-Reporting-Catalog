@@ -70,6 +70,23 @@
       display: none;
     }
 
+    /*click card links*/
+    .tab button2 {
+      display: block;
+      background-color: #fffff;
+      color: black;
+      padding: 22px 16px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    .tab button2:hover { background-color: #ddd; }
+    
     /* clearfix for each group */
     .group-wrap::after {
       content: "";
@@ -148,13 +165,13 @@
         
         <div class="column">
           <div class = "card">
-            <button class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')">
+            <button2 class="vTab" onclick="openInner(event, 'CKG', 'CKG_Article_Level')">
             <img src="https://charleskeith.sharepoint.com/sites/CKGBITeamSharing/Shared%20Documents/Miscellaneous/Images/Charles%20Insight%20Report.png" style="width:100%">
               <div class = "container">
                 <h4><b>Charles Insight Report</b></h4>
                 <p>xx summary</p>
               </div>
-            </button>
+            </button2>
           </div>
         </div>
         
